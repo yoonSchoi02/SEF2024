@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BoostCamp Coding Test - Question</title>
+    <link href="https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2107@1.0/NaNumSquareNeo.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <style>
+        body {
+            font-family: 'NanumSquareNeo', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            height: 100vh;
+            margin: 0;
+        }
+        .section {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .question-container {
+            width: 80%;
+            background-color: #f0f0f0;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: left;
+        }
+        .code-box {
+            background-color: #fff;
+            padding: 10px;
+            border: 1px solid #000;
+            border-radius: 5px;
+            white-space: pre-wrap;
+            font-family: 'Courier New', Courier, monospace;
+            margin-bottom: 20px;
+        }
+        .options {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            margin-top: 20px;
+        }
+        .option {
+            margin: 5px 0;
+        }
+        .button {
+            padding: 10px 20px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 20px;
+            background-color: #007BFF;
+            color: #FFF;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+        .message {
+            display: none;
+            font-size: 24px;
+            font-weight: 700;
+            margin-top: 20px;
+        }
+        .emoji {
+            font-size: 48px;
+            margin-top: 10px;
+        }
+        .countdown {
+            display: none;
+            font-size: 18px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>BoostCamp Coding Test</h1>
+    <div class="section question-container">
+        <h2>문제. 조건식</h2>
+        <p><strong>출제의도:</strong> C언어로 표현한 조건식을 읽고, while 반복 구조를 이해하며 반복 조건이 끝나는 경계값을 찾아낼 수 있어야 합니다.</p>
+        <p><strong>문항:</strong> 괄호에 들어갈 내용으로 가장 알맞은 것은 어떤 것일까요?</p>
+        <p>다음은 1부터 100까지 합을 구하는 프로그램의 일부입니다.</p>
+        <div class="code-box">
+int sum = 0;<br>
+int count = 1;<br>
+while () // 빈칸이 조건에 해당될 동안 반복하기<br>
+{    
+    sum = sum + count;<br>
+    count++;<br>
+}
+        </div>
+        <div class="options">
+            <label class="option"><input type="radio" name="answer" value="1"> count &lt; 101</label>
+            <label class="option"><input type="radio" name="answer" value="2"> count == 100</label>
+            <label class="option"><input type="radio" name="answer" value="3"> count != 100</label>
+            <label class="option"><input type="radio" name="answer" value="4"> count &lt; 99</label>
+            <label class="option"><input type="radio" name="answer" value="5"> count &lt; 100</label>
+        </div>
+        <button class="button" onclick="submitAnswer()">Submit</button>
+        <div id="message" class="message"></div>
+        <div id="emoji" class="emoji"></div>
+        <div id="countdown" class="countdown"></div>
+    </div>
+
+    <script>
+        function submitAnswer() {
+            const selectedAnswer = document.querySelector('input[name="answer"]:checked');
+
+            if (!selectedAnswer) {
+                alert('Please select an answer.');
+                return;
+            }
+
+            const answer = selectedAnswer.value;
+            const messageElement = document.getElementById('message');
+            const emojiElement = document.getElementById('emoji');
+            const countdownElement = document.getElementById('countdown');
+
+            if (answer === '5') {
+                messageElement.textContent = 'Congratulation!';
+                messageElement.style.display = 'block';
+                emojiElement.innerHTML = '&#x1F386;'; // Fireworks emoji
+                emojiElement.style.display = 'block';
+                countdownElement.style.display = 'block';
+                let countdown = 5;
+                countdownElement.textContent = `Returning to homepage in ${countdown} seconds...`;
+
+                const interval = setInterval(() => {
+                    countdown--;
+                    countdownElement.textContent = `Returning to homepage in ${countdown} seconds...`;
+                    if (countdown === 0) {
+                        clearInterval(interval);
+                        window.location.href = 'index.html';
+                    }
+                }, 1000);
+
+                confetti({
+                    particleCount: 100,
+                    spread: 70,
+                    origin: { y: 0.6 }
+                });
+            } else {
+                messageElement.textContent = 'Wrong Answer';
+                messageElement.style.display = 'block';
+                emojiElement.innerHTML = '&#x1F622;'; // Crying face emoji
+                emojiElement.style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>
